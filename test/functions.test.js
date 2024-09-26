@@ -106,12 +106,12 @@ describe('function booksWithStatus', () => {
 describe('function averagePriceOfBooks', () => {
   test('averagePriceOfBooks devuelve 26.17 â‚¬', () => {
     const response = functions.averagePriceOfBooks(books)
-    expect(response).toBe('26.17 â‚¬')
+    expect(response).toBe('26.17 €')
   });
   
   test('averagePriceOfBooks devuelve 0.00 â‚¬', () => {
     const response = functions.averagePriceOfBooks([])
-    expect(response).toBe('0.00 â‚¬')
+    expect(response).toBe('0.00 €')
   });
 })
 
@@ -165,7 +165,7 @@ describe('function getUserById', () => {
 
 
 describe('function getUserIndexById', () => {
-  test('getUserIndexById 3 devuelve el Ã­ndice 1', () => {
+  test('getUserIndexById 3 devuelve el Indice 1', () => {
     const response = functions.getUserIndexById(users, 3)
     expect(response).toBe(1)
   });
