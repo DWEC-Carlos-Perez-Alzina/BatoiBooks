@@ -1,7 +1,9 @@
 import './style.css'
 import batoiLogo from '/logoBatoi.png'
-import * as functions from './src/functions'
 import data from './src/services/datos'
+import Modules from './src/model/modules.class'
+import Users from './src/model/users.class'
+import Books from './src/model/books.class '
 
 document.querySelector('#app').innerHTML = `
   <div>
@@ -15,6 +17,17 @@ document.querySelector('#app').innerHTML = `
     </p>
   </div>
 `
-console.log('Todos los libros del usuario 4', functions.booksFromUser(data.books, 4))
-console.log('Todos los libros del modulo 5021 en buen estado', functions.booksWithStatus(functions.booksFromModule(data.books, '5021'), 'good'))
-console.log('Libros con el precio incrementado un 10%', functions.incrementPriceOfbooks(data.books, 0.1))
+
+
+const mods = new Modules()
+mods.populate(data.modules)
+
+const usrs = new Users()
+usrs.populate(data.users)
+
+const bks = new Books()
+bks.populate(data.books)
+
+console.log('Todos los libros del modulo 5021', bks.booksFromModule(data.books, '5021'))
+console.log('Mostrando los libros con el estado new', bks.booksWithStatus(data.books, 'new'))
+console.log('Libros con el precio incrementado un 10%', bks.incrementPriceOfbooks(data.books, 0.1))
