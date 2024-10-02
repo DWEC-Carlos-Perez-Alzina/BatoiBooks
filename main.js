@@ -3,7 +3,7 @@ import batoiLogo from '/logoBatoi.png'
 import data from './src/services/datos'
 import Modules from './src/model/modules.class'
 import Users from './src/model/users.class'
-import Books from './src/model/books.class '
+import Books from './src/model/books.class'
 
 document.querySelector('#app').innerHTML = `
   <div>
@@ -28,6 +28,6 @@ usrs.populate(data.users)
 const bks = new Books()
 bks.populate(data.books)
 
-console.log('Todos los libros del modulo 5021', bks.booksFromModule(data.books, '5021'))
-console.log('Mostrando los libros con el estado new', bks.booksWithStatus(data.books, 'new'))
-console.log('Libros con el precio incrementado un 10%', bks.incrementPriceOfbooks(data.books, 0.1))
+console.log('Todos los libros del modulo 5021', bks.booksFromModule('5021'))
+console.log('Mostrando los libros con el estado new', bks.booksWithStatus('new'))
+console.log('Libros con el precio incrementado un 10%', bks.incrementPriceOfbooks(0.1))

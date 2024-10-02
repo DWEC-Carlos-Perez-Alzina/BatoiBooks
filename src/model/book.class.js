@@ -1,16 +1,16 @@
 export default class Book {
 
-    constructor(id, userId, moduleCode, publisher, price, pages, status, photo = '', comments = '', soldDate = '') {
-        this.id = id
-        this.userId = userId
-        this.moduleCode = moduleCode
-        this.publisher = publisher
-        this.price = price
-        this.pages = pages
-        this.status = status
-        this.photo = photo
-        this.comments = comments
-        this.soldDate = soldDate
+    constructor(book) {
+        this.id = book.id
+        this.userId = book.userId
+        this.moduleCode = book.moduleCode
+        this.publisher = book.publisher
+        this.price = book.price
+        this.pages = book.pages
+        this.status = book.status
+        this.photo = book.photo ?? ''
+        this.comments = book.comments ?? ''
+        this.soldDate = book.soldDate ?? ''
     }
 
     toString() {

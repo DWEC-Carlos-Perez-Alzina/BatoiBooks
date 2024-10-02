@@ -1,3 +1,4 @@
+import User from '../model/user.class'
 export default  class Users {
 
     constructor() {
@@ -5,31 +6,29 @@ export default  class Users {
     }
 
     populate(usersIniciales) {
-        this.data = usersIniciales
+        this.data = usersIniciales.map(user => new User(user.id, user.nick, user.email, user.password))
     }
 
     addUser(user) {
-        const newUser = { ...user, id: this.idGenerator() }
+        let newUser = new User(user.id, user.nick, user.email, user.password)
+        newUser.id = this.idGenerator()
         this.data.push(newUser)
+        return newUser
     }
 
     removeUser(userId) {
-        if (this.getUserById)
-        this.data = this.data.filter(user => user.id !== userId)
-        else
-        throw new Error(`No existe usuario con id ${userId}`)
+        const index = this.data.splice(this.getUserIndexById(userId), 1)
+        return this.data[index]
     }
 
-    changeUser(userId, newUser) {
-        const user = this.getUserById(this.data, userId)
-        if (!user) {
-            throw new Error(`No existe usuario con id ${userId}`)
-        }
-        this.data[this.getUserIndexById(this.data, userId)] = newUser
+    changeUser(newUser) {
+        const index = this.getUserIndexById(newUser.id)
+        this.data[index] = newUser
+        return newUser
     }
 
-    getUserById(users, userId) {
-        const user = Array.from(users).find(user => user.id === userId)
+    getUserById(userId) {
+        const user = this.data.find(user => user.id === userId)
         if (!user) {
             throw new Error(`No existe usuario con id ${userId}`)
         }
@@ -40,16 +39,16 @@ export default  class Users {
         return this.data.map(user => user.toString()).join(', ')
     }
     
-    getUserIndexById(users, userId) {
-        const index = Array.from(users).findIndex(user => user.id === userId)
+    getUserIndexById(userId) {
+        const index = this.data.findIndex(user => user.id === userId)
         if (index === -1) {
             throw new Error(`No existe usuario con id ${userId}`)
         }
         return index
     }
     
-    getUserByNickName(users, nick) {
-        const user = Array.from(users).find(user => user.nick === nick)
+    getUserByNickName(nick) {
+        const user = this.data.find(user => user.nick === nick)
         if (!user) {
             throw new Error(`No existe usuario con nick ${nick}`)
         }
