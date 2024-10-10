@@ -1,4 +1,4 @@
-const data = {
+{
   "courses": [
     {
       "id": "3",
@@ -1843,12 +1843,6 @@ const data = {
       "password": "1234"
     },
     {
-      "email": "juanseguravasco@gmail.com",
-      "nick": "Juan",
-      "id": 3,
-      "password": "1234"
-    },
-    {
       "email": "marta@gmail.lan",
       "nick": "Marta",
       "id": 4,
@@ -1859,6 +1853,24 @@ const data = {
       "nick": "Ximo",
       "id": 5,
       "password": "1234"
+    },
+    {
+      "email": "asd@asd.es",
+      "nick": "dsa",
+      "password": "4321",
+      "id": 6
+    },
+    {
+      "email": "asd@asd.es",
+      "nick": "dsa",
+      "password": "4321",
+      "id": 7
+    },
+    {
+      "email": "usr@usr.es",
+      "nick": "rsu",
+      "password": "4321",
+      "id": 8
     }
   ],
   "books": [
@@ -1873,18 +1885,6 @@ const data = {
       "photo": "",
       "comments": "",
       "soldDate": "2023-02-01"
-    },
-    {
-      "userId": 3,
-      "moduleCode": "5021",
-      "publisher": "McGraw-Hill",
-      "price": 75,
-      "pages": 273,
-      "status": "new",
-      "photo": "",
-      "comments": "Sense obrir",
-      "soldDate": "",
-      "id": 6
     },
     {
       "userId": 4,
@@ -1936,5 +1936,3 @@ const data = {
     }
   ]
 }
-
-export default data

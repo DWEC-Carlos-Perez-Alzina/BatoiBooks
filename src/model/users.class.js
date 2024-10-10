@@ -1,27 +1,42 @@
 import User from '../model/user.class'
+import ApiUser from '../services/users.api'
 export default  class Users {
 
     constructor() {
         this.data = [];
+        this.usersApi = new ApiUser();
     }
 
-    populate(usersIniciales) {
-        this.data = usersIniciales.map(user => new User(user.id, user.nick, user.email, user.password))
+    async populate() {
+        const usersApi = await this.usersApi.getDBUsers()
+        this.data = usersApi.map(user => new User(user.id, user.nick, user.email, user.password))
+
     }
 
-    addUser(user) {
-        let newUser = new User(user.id, user.nick, user.email, user.password)
-        newUser.id = this.idGenerator()
+    async addUser(user) {
+        const userDB = await this.usersApi.addDBUser(user)
+        let newUser = new User(userDB.id, userDB.nick, userDB.email, userDB.password)
         this.data.push(newUser)
         return newUser
     }
 
-    removeUser(userId) {
+    async removeUser(userId) {
+        await this.usersApi.removeDBUser(userId)
         const index = this.data.splice(this.getUserIndexById(userId), 1)
         return this.data[index]
     }
 
-    changeUser(newUser) {
+    async changeUser(user) {
+        const newUserFDB = await this.usersApi.changeDBUser(user)
+        const newUser = new User(newUserFDB.id, newUserFDB.nick, newUserFDB.email, newUserFDB.password)
+        const index = this.getUserIndexById(newUser.id)
+        this.data[index] = newUser
+        return newUser
+    }
+
+    async changeUserPassword(userId, password) {
+        const modifiedUser = await this.usersApi.changeDBUserPassword(userId, password)
+        const newUser = new User(modifiedUser.id, modifiedUser.nick, modifiedUser.email, modifiedUser.password)
         const index = this.getUserIndexById(newUser.id)
         this.data[index] = newUser
         return newUser
@@ -53,9 +68,5 @@ export default  class Users {
             throw new Error(`No existe usuario con nick ${nick}`)
         }
         return user
-    }
-
-    idGenerator() {
-        return this.data.reduce((maxId, user) => Math.max(maxId, user.id), 0) + 1
     }
 }

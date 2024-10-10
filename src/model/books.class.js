@@ -1,27 +1,32 @@
+import BooksApi from '../services/books.api'
 import Book from './book.class'
 const TYPE = "Apunts"
 export default class Books {
     constructor() {
         this.data = [];
+        this.booksApi = new BooksApi();
     }
 
-    populate(datosIniciales) {
-        this.data = datosIniciales.map(book => new Book(book))
+    async populate() {
+        const booksData = await this.booksApi.getDBBooks();
+        this.data = booksData.map(book => new Book(book));
     }
 
-    addBook(book) {
-        let newBook = new Book(book)
-        newBook.id = this.idGenerator()
+    async addBook(book) {
+        const book1 = await this.booksApi.addDBBook(book)
+        const newBook = new Book(book1)
         this.data.push(newBook)
         return newBook
     }
-
-    removeBook(bookId) {
+    async removeBook(bookId) {
+        await this.booksApi.removeDBBook(bookId)
         const index = this.data.splice(this.getBookIndexById(bookId), 1)
         return this.data[index]
     }
 
-    changeBook(newBook) {
+    async changeBook(book) {
+        const newBookFDB = await this.booksApi.changeDBBook(book)
+        const newBook = new Book(newBookFDB)
         const index = this.getBookIndexById(newBook.id)
         this.data[index] = newBook
         return newBook

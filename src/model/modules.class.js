@@ -1,11 +1,13 @@
+import ModulesApi from '../services/modules.api'
 import Module from './module.class.js'
 export default class Modules {
     constructor() {
         this.data = [];
+        this.modulesApi = new ModulesApi()
     }
-
-    populate(modulesIniciales) {
-        this.data = modulesIniciales.map(module => new Module(module.code, module.cliteral, module.vliteral, module.courseId))
+    async populate() {
+        const modulesData = await this.modulesApi.getDBModules()
+        this.data = modulesData.map(module => new Module(module.code, module.cliteral, module.vliteral, module.courseId))
     }
 
     toString() {
