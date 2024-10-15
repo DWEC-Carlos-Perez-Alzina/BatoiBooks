@@ -19,10 +19,10 @@ document.querySelector('#app').innerHTML = `
 
 
 const mods = new Modules()
-mods.populate()
+await mods.populate()
 
 const usrs = new Users()
-usrs.populate()
+await usrs.populate()
 
 const bks = new Books()
 await bks.populate()
