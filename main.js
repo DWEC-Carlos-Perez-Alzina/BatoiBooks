@@ -30,8 +30,8 @@ document.querySelector('#app').innerHTML = `
       <form id="bookForm">
         <div>
           <label for="id-module">Módulo:</label>
-          <select id="id-module">
-            <option>- Selecciona un módulo -</option>
+          <select id="id-module" required>
+            <option value="" disabled selected>- Selecciona un módulo -</option>
           </select>
         </div>
 
@@ -42,12 +42,12 @@ document.querySelector('#app').innerHTML = `
 
         <div>
           <label for="price">Precio:</label>
-          <input type="number" id="price">
+          <input type="number" id="price" required min="0">
         </div>
 
         <div>
           <label for="pages">Páginas:</label>
-          <input type="number" id="pages">
+          <input type="number" id="pages" required min="0">
         </div>
 
         <div>
@@ -65,12 +65,13 @@ document.querySelector('#app').innerHTML = `
 
         <div>
           <label for="comments">Comentarios:</label>
-          <textarea id="comments"></textarea>
+          <textarea id="comments" required></textarea>
         </div>
 
         <button type="submit">Añadir</button>
         <button type="reset">Reset</button>
       </form>
+
       </div>
     </div>
     <div id="about">

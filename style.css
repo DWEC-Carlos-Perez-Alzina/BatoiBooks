@@ -16,9 +16,7 @@ header {
   color: white;
   padding: 10px;
   text-align: center;
-  /*position: sticky;*/
   top: 0;
-  /*z-index: 1000;*/
 }
 
 header img {
@@ -69,38 +67,6 @@ nav ul li a:hover {
   background-color: #555;
 }
 
-/* Menú desplegable para móviles */
-@media (max-width: 768px) {
-  nav {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: auto;
-    background-color: #333;
-    z-index: 1000;
-    overflow-y: auto;
-  }
-
-  header {
-    padding: 10px;
-  }
-
-  .menu-toggle:hover {
-    background-color: #555;
-  }
-
-  nav ul {
-    /*display: block;*/
-    background-color: #444;
-    padding: 10px;
-  }
-
-  nav ul li {
-    margin-bottom: 10px;
-  }
-}
-
 /* Contenido principal */
 div {
   margin-left: 120px;
@@ -129,9 +95,13 @@ div {
   margin: 0 auto;
   box-sizing: border-box;
   margin-left: 0px;
+  text-align: center;
 }
 
-/* Estilos internos de las tarjetas */
+.card img {
+  width: 60px;
+}
+
 .card h4, .card p {
   margin: 8px 0;
 }
@@ -141,7 +111,6 @@ div {
   color: #333;
 }
 
-/* Mejora en el estilo de los títulos y secciones de la tarjeta */
 .card h4 {
   font-size: 18px;
   font-weight: bold;
@@ -204,24 +173,7 @@ button:hover {
   color: white;
 }
 
-/* Responsividad */
-@media (max-width: 768px) {
-  nav {
-    width: 100%;
-    height: auto;
-    position: relative;
-  }
-
-  div {
-    margin-left: 0;
-    padding: 10px;
-  }
-
-  #list {
-    grid-template-columns: 1fr;
-  }
-}
-
+/* Diseño Respon */
 @media (max-width: 992px) {
   #list {
     grid-template-columns: repeat(3, 1fr);
@@ -236,5 +188,44 @@ button:hover {
 @media (min-width: 769px) and (max-width: 1024px) {
   #list {
     grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  nav {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: auto;
+    background-color: #333;
+    z-index: 1000;
+    overflow-y: auto;
+  }
+
+  div {
+    margin-left: 0;
+    padding: 10px;
+  }
+
+  header {
+    padding: 10px;
+  }
+
+  .menu-toggle:hover {
+    background-color: #555;
+  }
+
+  nav ul {
+    background-color: #444;
+    padding: 10px;
+  }
+
+  nav ul li {
+    margin-bottom: 10px;
+  }
+
+  #list {
+    grid-template-columns: 1fr;
   }
 }

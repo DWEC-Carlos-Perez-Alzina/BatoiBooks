@@ -22,7 +22,7 @@ export default class Controller {
             await this.model.users.populate()
             await this.model.books.populate()
             this.view.renderModulesOptions(this.model.modules.data)
-            this.model.books.data.forEach(book => this.view.renderBook(book))
+            this.model.books.data.forEach(book => this.view.renderBook(book, this.model.modules.getModuleByCode(book.moduleCode)))
         } catch (error) {
             this.view.renderMessage('error', 'Error al cargar los datos')
         }
@@ -30,12 +30,13 @@ export default class Controller {
 
     async handleSubmitBook(payLoad) {
         alert('form enviado')
+        payLoad.photo = 'https://png.pngtree.com/png-vector/20230105/ourmid/pngtree-book-icon-vector-image-png-image_6552370.png'
         console.log(payLoad)
         try {
-            const newBook = await this.model.books.addBook(payLoad).then(() => {
-                this.view.renderMessage('success', 'Libro agregado')
-                this.view.renderBook(payLoad)
-            })
+            const newBook = await this.model.books.addBook(payLoad)
+            this.view.renderMessage('success', 'Libro agregado')
+            this.view.renderBook(newBook, this.model.modules.getModuleByCode(newBook.moduleCode))
+
             // const bookUp = new Book(newBook)
         } catch (error) {
             console.error(error)

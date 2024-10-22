@@ -19,20 +19,22 @@ export default class View {
         });
     }
 
-    renderBook(book) {
+    renderBook(book, moduleName) {
         const card = document.createElement('div')
         card.classList.add('card')
         card.id = book.id
 
         card.innerHTML = `
+        <img class="card-img-top" src="${book.photo || 'https://png.pngtree.com/png-vector/20230105/ourmid/pngtree-book-icon-vector-image-png-image_6552370.png'}" alt="Imagen del libro">
         <h4>Libro: ${book.id}</h4>
         <div class="card-body">
-            <h3>${book.moduleCode} (${book.id})</h3>
+            <h3>${moduleName.cliteral} (${book.id})</h3>
             <h4>Editorial</h4>
             <p>${book.publisher}</p>
             <p>${book.pages} páginas</p>
             <p>Estado: ${book.status}</p>
             <p>${book.soldDate ? `Vendido el ${book.soldDate}` : 'En venta'}</p>
+            <h5>Comentarios</h5>
             <p>${book.comments}</p>
             <h4>${book.price} €</h4>
         </div>
@@ -46,23 +48,27 @@ export default class View {
     }
 
     renderMessage(type, message) {
+        const messagesDiv = document.getElementById('messages')
         const div = document.createElement('div')
         div.classList.add('alert', 'alert-dismissible', 'd-flex', 'justify-content-between', 'align-items-center')
         if (type === 'success') {
-            div.classList.add('alert-success')
+            div.classList.add('alert-info')
         } else {
             div.classList.add('alert-danger')
         }
         div.setAttribute('role', 'alert')
         div.innerHTML = `
-            <div style="width: 100%; background-color: ${type === 'success' ? 'green' : 'red'}; display: flex; justify-content: space-between; align-items: center;">
-                <p style="margin: 0;">${message}</p>
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close" onclick="this.parentElement.remove()">x</button>
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <p style="margin: 0; flex-grow: 1;">${message}</p>
+                <button type="button" class="btn-close" style="margin-left: auto;">x</button>
             </div>
         `
-        document.body.appendChild(div)
+        messagesDiv.appendChild(div)
 
-        // Agrega un temporizador para eliminar la alerta después de 3 segundos
+        div.querySelector('.btn-close').addEventListener('click', () => {
+            div.remove()
+        });
+
         setTimeout(() => {
             div.remove()
         }, 3000)
