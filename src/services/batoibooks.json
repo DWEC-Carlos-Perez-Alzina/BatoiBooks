@@ -2199,7 +2199,7 @@
       "id": "10"
     },
     {
-      "id": "cbb8",
+      "id": "11",
       "moduleCode": "0021",
       "publisher": "jsdsd",
       "pages": "546546",
@@ -2215,36 +2215,6 @@
       "status": "good",
       "price": "312312",
       "comments": "adadasd"
-    },
-    {
-      "id": "7a91",
-      "moduleCode": "0011",
-      "publisher": "asdasdasd",
-      "pages": "52345235",
-      "status": "good",
-      "price": "13123123",
-      "comments": "dfsdfgsfsg",
-      "photo": "https://png.pngtree.com/png-vector/20230105/ourmid/pngtree-book-icon-vector-image-png-image_6552370.png"
-    },
-    {
-      "id": "f9d6",
-      "moduleCode": "0047",
-      "publisher": "xcfvsdf",
-      "pages": "342123",
-      "status": "good",
-      "price": "4324134",
-      "comments": "fdasdfa",
-      "photo": "https://png.pngtree.com/png-vector/20230105/ourmid/pngtree-book-icon-vector-image-png-image_6552370.png"
-    },
-    {
-      "id": "86ad",
-      "moduleCode": "0028",
-      "publisher": "djasaasdasd",
-      "pages": "234234",
-      "status": "good",
-      "price": "2342341",
-      "comments": "fasdfasdf",
-      "photo": "https://png.pngtree.com/png-vector/20230105/ourmid/pngtree-book-icon-vector-image-png-image_6552370.png"
     }
   ]
 }

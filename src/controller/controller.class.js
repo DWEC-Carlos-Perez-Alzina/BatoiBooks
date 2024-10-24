@@ -2,7 +2,6 @@ import Modules from '../model/modules.class'
 import Users from '../model/users.class'
 import Books from '../model/books.class'
 import View from '../view/view.class'
-import Book from '../model/book.class'
 
 export default class Controller {
     constructor() {
@@ -16,16 +15,28 @@ export default class Controller {
 
     async init() {
         try {
+            await Promise.all([
+                this.model.modules.populate(), 
+                this.model.users.populate(), 
+                this.model.books.populate()
+            ])
             this.view.setBookSubmitHandler(this.handleSubmitBook.bind(this))
-            this.view.setBookRemoveHandler(this.handleRemoveBook.bind(this))
-            await this.model.modules.populate()
-            await this.model.users.populate()
-            await this.model.books.populate()
             this.view.renderModulesOptions(this.model.modules.data)
-            this.model.books.data.forEach(book => this.view.renderBook(book, this.model.modules.getModuleByCode(book.moduleCode)))
+            const allBooks = this.model.books.data
+            allBooks.forEach(book => this.view.renderBook(book, this.model.modules.getModuleByCode(book.moduleCode)))
+            this.setBookRemoveEventListener(allBooks)
         } catch (error) {
             this.view.renderMessage('error', 'Error al cargar los datos')
         }
+    }
+
+    setBookRemoveEventListener(books) {
+        books.forEach(book => {
+            document.getElementById(book.id).querySelector('.removebutton').addEventListener('click', (event) => {
+                event.preventDefault()
+                this.handleRemoveBook(book.id)
+            })
+        })
     }
 
     async handleSubmitBook(payLoad) {
@@ -36,8 +47,8 @@ export default class Controller {
             const newBook = await this.model.books.addBook(payLoad)
             this.view.renderMessage('success', 'Libro agregado')
             this.view.renderBook(newBook, this.model.modules.getModuleByCode(newBook.moduleCode))
+            this.setBookRemoveEventListener([newBook])
 
-            // const bookUp = new Book(newBook)
         } catch (error) {
             console.error(error)
             this.view.renderMessage('error', 'Error al agregar el libro')
@@ -45,7 +56,9 @@ export default class Controller {
     }
 
     async handleRemoveBook(bookId) {
-        alert('form enviado')
+        if(!confirm('¿Seguro que quieres borrar este libro?')) {
+            return
+        }
         console.log(bookId)
         try {
             const newData = await this.model.books.removeBook(bookId).then(() => {

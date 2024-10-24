@@ -2,10 +2,8 @@ export default class View {
     constructor() {
         this.bookList = document.getElementById('list')
         this.bookForm = document.getElementById('bookForm')
-        this.remove = document.getElementById('remove')
         this.about = document.getElementById('about')
         this.form = document.getElementById('form')
-        this.messages = document.getElementById('messages')
     }
 
     renderModulesOptions(modules) {
@@ -37,6 +35,15 @@ export default class View {
             <h5>Comentarios</h5>
             <p>${book.comments}</p>
             <h4>${book.price} €</h4>
+            <button class="addtocart" value="${book.id}">
+                <span class="material-icons">add_shopping_cart</span>
+            </button>
+            <button class="removebutton" value="${book.id}">
+                <span class="material-icons">delete</span>
+            </button>
+            <button class="editbutton" value="${book.id}">
+                <span class="material-icons">edit</span>
+            </button>
         </div>
         `
         document.getElementById('list').appendChild(card)
@@ -89,13 +96,6 @@ export default class View {
            console.log(moduleCode, publisher, pages, price, comments)
            const book = {moduleCode, publisher, pages, status, price, comments}
         callback(book)
-        })
-    }
-       
-    setBookRemoveHandler(callback) {
-        this.remove.addEventListener('click', () => {
-            const idToRemove = document.getElementById('id-remove').value
-            callback(idToRemove)
         })
     }
 }
