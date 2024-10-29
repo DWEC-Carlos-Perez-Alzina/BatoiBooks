@@ -4,6 +4,7 @@ export default class View {
         this.bookForm = document.getElementById('bookForm')
         this.about = document.getElementById('about')
         this.form = document.getElementById('form')
+        this.editingBookId = null 
     }
 
     renderModulesOptions(modules) {
@@ -81,21 +82,75 @@ export default class View {
         }, 3000)
     }
 
-    setBookSubmitHandler(callback) {  
+    resetForm() {
+        const h2 = this.form.querySelector('h2');
+        h2.innerHTML = 'Añadir libro';
+        this.bookForm.querySelector('button[type=submit]').innerHTML = 'Añadir';
+        this.bookForm.reset();
+        this.editingBookId = null;
+        const idField = this.bookForm.querySelector('#id')?.parentNode;
+        if (idField) {
+            idField.remove();
+        }
+    }
+
+    setFormResetHandler(callback) {
+        this.bookForm.addEventListener('reset', (event) => {
+            event.preventDefault();
+            this.resetForm();
+            callback();
+        });
+    }
+
+    setBookSubmitHandler(callback) {
         this.bookForm.addEventListener('submit', (event) => {
-           event.preventDefault()
-           const moduleCode = document.getElementById('id-module').value
-           console.log('VALOR DE ID MODULE')
-           console.log(moduleCode)
-           console.log('YA NO ES EL VALOR')
-           const publisher = document.getElementById('publisher').value
-           const pages = document.getElementById('pages').value
-           const status = document.getElementById('status').value
-           const price = document.getElementById('price').value
-           const comments = document.getElementById('comments').value
-           console.log(moduleCode, publisher, pages, price, comments)
-           const book = {moduleCode, publisher, pages, status, price, comments}
-        callback(book)
-        })
+           event.preventDefault();
+           const moduleCode = document.getElementById('id-module').value;
+           const publisher = document.getElementById('publisher').value;
+           const pages = document.getElementById('pages').value;
+    
+           const statusRadios = this.bookForm.querySelectorAll('input[name="status"]');
+           let selectedStatus;
+           statusRadios.forEach(radio => {
+               if (radio.checked) {
+                   selectedStatus = radio.value;
+               }
+           });
+    
+           const price = document.getElementById('price').value;
+           const comments = document.getElementById('comments').value;
+    
+           const book = { moduleCode, publisher, pages, status: selectedStatus, price, comments };
+           
+           callback(book, this.editingBookId);
+           
+           if (this.editingBookId) {
+               this.resetForm();
+           }
+        });
+    }
+
+    setBookEditHandler(book) {
+        const h2 = this.form.querySelector('h2');
+        const bookForm = document.getElementById('bookForm');
+        const idField = document.createElement('div');
+        idField.innerHTML = `
+            <label for="id">ID</label>
+            <input type="text" id="id" name="id" value="${book.id}" readonly disabled />
+        `;
+        const moduleField = bookForm.querySelector('#id-module').parentNode;
+        moduleField.parentNode.insertBefore(idField, moduleField);
+        h2.innerHTML = 'Editar libro';
+        bookForm.querySelector('button[type=submit]').innerHTML = 'Editar';
+        document.getElementById('id-module').value = book.moduleCode;
+        document.getElementById('publisher').value = book.publisher;
+        document.getElementById('pages').value = book.pages;
+        const statusRadios = bookForm.querySelectorAll('input[name="status"]');
+        statusRadios.forEach(radio => {
+            radio.checked = (radio.value === book.status);
+        });
+        document.getElementById('price').value = book.price;
+        document.getElementById('comments').value = book.comments;
+        this.editingBookId = book.id;
     }
 }

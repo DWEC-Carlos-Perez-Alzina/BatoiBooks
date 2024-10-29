@@ -49,13 +49,13 @@ document.querySelector('#app').innerHTML = `
         <div>
           <label>Estado:</label>
           <label>
-            <input type="radio" id="status" name="status" value="good" required> Good
+            <input type="radio" id="good" name="status" value="good" required> Good
           </label>
           <label>
-            <input type="radio" id="status" name="status" value="new" required> New
+            <input type="radio" id="new" name="status" value="new" required> New
           </label>
           <label>
-            <input type="radio" id="status" name="status" value="old" required> Old
+            <input type="radio" id="old" name="status" value="old" required> Old
           </label>
         </div>
 

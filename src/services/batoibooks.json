@@ -2210,11 +2210,13 @@
     {
       "id": "1525",
       "moduleCode": "0012",
-      "publisher": "asdasd",
+      "publisher": "aPruebaaa",
+      "price": "312312",
       "pages": "1231230",
       "status": "good",
-      "price": "312312",
-      "comments": "adadasd"
+      "photo": "",
+      "comments": "adadasd",
+      "soldDate": ""
     }
   ]
 }
