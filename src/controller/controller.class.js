@@ -24,6 +24,7 @@ export default class Controller {
                 this.model.cart.populate()
             ])
             this.view.setBookSubmitHandler(this.handleSubmitBook.bind(this))
+            this.view.setAddBookHandler()
             this.view.renderModulesOptions(this.model.modules.data)
             const allBooks = this.model.books.data
             allBooks.forEach(book => this.view.renderBook(book, this.model.modules.getModuleByCode(book.moduleCode)))

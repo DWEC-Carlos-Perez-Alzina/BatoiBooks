@@ -169,4 +169,14 @@ export default class View {
         document.getElementById('comments').value = book.comments;
         this.editingBookId = book.id;
     }
+
+    setAddBookHandler() {
+        const formLink = document.getElementById('form-link');
+
+        formLink.addEventListener('click', (event) => {
+            event.preventDefault();
+            window.location.hash = '#form';
+            this.resetForm();
+        });
+    }
 }
