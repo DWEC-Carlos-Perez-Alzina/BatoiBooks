@@ -1,8 +1,5 @@
 import './style.css'
 import batoiLogo from '/logoBatoi.png'
-import Modules from './src/model/modules.class'
-import Users from './src/model/users.class'
-import Books from './src/model/books.class'
 import Controller from './src/controller/controller.class'
 
 document.querySelector('#app').innerHTML = `
@@ -29,21 +26,28 @@ document.querySelector('#app').innerHTML = `
           <select id="id-module" required>
             <option value="" disabled selected>- Selecciona un módulo -</option>
           </select>
+          <span class="error"></span>
         </div>
 
         <div>
           <label for="publisher">Editorial:</label>
           <input type="text" id="publisher" required>
+          <span class="error"></span>
+
         </div>
 
         <div>
           <label for="price">Precio:</label>
           <input type="number" id="price" required min="0">
+          <span class="error"></span>
+
         </div>
 
         <div>
           <label for="pages">Páginas:</label>
           <input type="number" id="pages" required min="0">
+          <span class="error"></span>
+
         </div>
 
         <div>
@@ -57,15 +61,20 @@ document.querySelector('#app').innerHTML = `
           <label>
             <input type="radio" id="old" name="status" value="old" required> Old
           </label>
+          <span class="error"></span>
         </div>
 
         <div>
           <label for="comments">Comentarios:</label>
-          <textarea id="comments" required></textarea>
+          <textarea id="comments"></textarea>
+          <span class="error"></span>
+
         </div>
 
         <button type="submit">Añadir</button>
         <button type="reset">Reset</button>
+        <span class="error"></span>
+
       </form>
 
       </div>

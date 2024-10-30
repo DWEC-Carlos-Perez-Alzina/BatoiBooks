@@ -27,15 +27,15 @@ export default class View {
         <img class="card-img-top" src="${book.photo || 'https://png.pngtree.com/png-vector/20230105/ourmid/pngtree-book-icon-vector-image-png-image_6552370.png'}" alt="Imagen del libro">
         <h4>Libro: ${book.id}</h4>
         <div class="card-body">
-            <h3>${moduleName.cliteral} (${book.id})</h3>
+            <h3 class="card-title">${moduleName.cliteral} (${book.id})</h3>
             <h4>Editorial</h4>
-            <p>${book.publisher}</p>
-            <p>${book.pages} páginas</p>
-            <p>Estado: ${book.status}</p>
-            <p>${book.soldDate ? `Vendido el ${book.soldDate}` : 'En venta'}</p>
+            <p class="publisher">${book.publisher}</p>
+            <p class="pages">${book.pages} páginas</p>
+            <p class="status">Estado: ${book.status}</p>
+            <p class="sold-date">${book.soldDate ? `Vendido el ${book.soldDate}` : 'En venta'}</p>
             <h5>Comentarios</h5>
-            <p>${book.comments}</p>
-            <h4>${book.price} €</h4>
+            <p class="comments">${book.comments}</p>
+            <h4 class="price">${book.price} €</h4>
             <button class="addtocart" value="${book.id}">
                 <span class="material-icons">add_shopping_cart</span>
             </button>
@@ -49,6 +49,21 @@ export default class View {
         `
         document.getElementById('list').appendChild(card)
     }
+
+    renderEditedBook(book) {
+        const card = document.getElementById(book.id);
+    
+        if (card) {
+            card.querySelector('.card-title').textContent = book.moduleCode;
+            card.querySelector('.publisher').textContent = book.publisher;
+            card.querySelector('.pages').textContent = book.pages;
+
+            card.querySelector('.status').textContent = book.status;
+            card.querySelector('.price').textContent = book.price;
+            card.querySelector('.comments').textContent = book.comments;
+        }
+    }
+    
 
     removeBook(bookId) {
         const card = document.getElementById(bookId)
@@ -119,25 +134,26 @@ export default class View {
     
            const price = document.getElementById('price').value;
            const comments = document.getElementById('comments').value;
-    
+
            const book = { moduleCode, publisher, pages, status: selectedStatus, price, comments };
-           
+            
            callback(book, this.editingBookId);
-           
-           if (this.editingBookId) {
-               this.resetForm();
-           }
+        
+           this.resetForm();
         });
     }
 
     setBookEditHandler(book) {
         const h2 = this.form.querySelector('h2');
         const bookForm = document.getElementById('bookForm');
-        const idField = document.createElement('div');
-        idField.innerHTML = `
-            <label for="id">ID</label>
-            <input type="text" id="id" name="id" value="${book.id}" readonly disabled />
-        `;
+        let idField = document.getElementById('id')?.parentNode;
+        if (!idField) {
+            idField = document.createElement('div');
+            idField.innerHTML = `
+                <label for="id">ID</label>
+                <input type="text" id="id" name="id" value="${book.id}" readonly disabled />
+            `;
+        }
         const moduleField = bookForm.querySelector('#id-module').parentNode;
         moduleField.parentNode.insertBefore(idField, moduleField);
         h2.innerHTML = 'Editar libro';

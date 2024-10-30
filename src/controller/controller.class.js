@@ -75,17 +75,15 @@ export default class Controller {
                 const bookToEdit = this.model.books.getBookById(editingBookId);
                 book = await this.model.books.changeBook({...bookToEdit, ...payLoad});
                 this.view.renderMessage('success', 'Libro editado correctamente');
-                this.view.removeBook(editingBookId);
-                this.view.renderBook(book, this.model.modules.getModuleByCode(book.moduleCode));
+                this.view.renderEditedBook(book);
             } else {
                 book = await this.model.books.addBook(payLoad);
                 this.view.renderMessage('success', 'Libro agregado');
                 this.view.renderBook(book, this.model.modules.getModuleByCode(book.moduleCode));
+                this.setBookRemoveEventListener([book]);
+                this.setBookAddToCartEventListener([book]);
+                this.setBookEditHandlerController([book]);
             }
-            
-            this.setBookRemoveEventListener([book]);
-            this.setBookAddToCartEventListener([book]);
-            this.setBookEditHandlerController([book]);
         } catch (error) {
             console.error(error);
             this.view.renderMessage('error', 'Error al procesar el libro');

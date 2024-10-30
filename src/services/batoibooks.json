@@ -2175,37 +2175,39 @@
       "id": "8"
     },
     {
+      "id": "9",
       "userId": 4,
       "moduleCode": "5025",
-      "publisher": "Apunts",
-      "price": 35,
-      "pages": 73,
+      "publisher": "Apunts11",
+      "price": "35",
+      "pages": "73",
       "status": "good",
       "photo": "",
       "comments": "",
-      "soldDate": "",
-      "id": "9"
+      "soldDate": ""
     },
     {
+      "id": "10",
       "userId": 5,
       "moduleCode": "5021",
       "publisher": "Apunts",
-      "price": 5,
-      "pages": 57,
+      "price": "123",
+      "pages": "5756",
       "status": "good",
       "photo": "",
-      "comments": "",
-      "soldDate": "",
-      "id": "10"
+      "comments": "jiji",
+      "soldDate": ""
     },
     {
       "id": "11",
       "moduleCode": "0021",
-      "publisher": "jsdsd",
+      "publisher": "jsdsd2222",
+      "price": "5445546",
       "pages": "546546",
       "status": "good",
-      "price": "5445546",
-      "comments": "adad"
+      "photo": "",
+      "comments": "adad",
+      "soldDate": ""
     },
     {
       "id": "1525",
