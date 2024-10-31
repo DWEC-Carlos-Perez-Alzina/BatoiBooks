@@ -25,6 +25,7 @@ export default class Controller {
             ])
             this.view.setBookSubmitHandler(this.handleSubmitBook.bind(this))
             this.view.setAddBookHandler()
+            //this.view.setFormResetHandler()
             this.view.renderModulesOptions(this.model.modules.data)
             const allBooks = this.model.books.data
             allBooks.forEach(book => this.view.renderBook(book, this.model.modules.getModuleByCode(book.moduleCode)))

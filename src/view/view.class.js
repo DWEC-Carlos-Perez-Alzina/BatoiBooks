@@ -103,9 +103,11 @@ export default class View {
         this.bookForm.querySelector('button[type=submit]').innerHTML = 'Añadir';
         this.bookForm.reset();
         this.editingBookId = null;
-        const idField = this.bookForm.querySelector('#id')?.parentNode;
-        if (idField) {
-            idField.remove();
+        const idField = this.bookForm.querySelector('#id');
+        const idLabel = this.bookForm.querySelector('label[for="id"]');
+        if (idField && idLabel) {
+            idField.classList.add('hidden');
+            idLabel.classList.add('hidden');
         }
     }
 
@@ -146,16 +148,11 @@ export default class View {
     setBookEditHandler(book) {
         const h2 = this.form.querySelector('h2');
         const bookForm = document.getElementById('bookForm');
-        let idField = document.getElementById('id')?.parentNode;
-        if (!idField) {
-            idField = document.createElement('div');
-            idField.innerHTML = `
-                <label for="id">ID</label>
-                <input type="text" id="id" name="id" value="${book.id}" readonly disabled />
-            `;
-        }
-        const moduleField = bookForm.querySelector('#id-module').parentNode;
-        moduleField.parentNode.insertBefore(idField, moduleField);
+        const idField = document.getElementById('id');
+        const idLabel = document.getElementById('id-label');
+        idField.classList.remove('hidden');
+        idField.value = book.id;
+        idLabel.classList.remove('hidden');
         h2.innerHTML = 'Editar libro';
         bookForm.querySelector('button[type=submit]').innerHTML = 'Editar';
         document.getElementById('id-module').value = book.moduleCode;
