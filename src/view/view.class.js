@@ -135,6 +135,8 @@ export default class View {
            const price = document.getElementById('price').value;
            const comments = document.getElementById('comments').value;
 
+           
+
            const book = { moduleCode, publisher, pages, status: selectedStatus, price, comments };
             
            callback(book, this.editingBookId);
@@ -169,7 +171,7 @@ export default class View {
         document.getElementById('comments').value = book.comments;
         this.editingBookId = book.id;
     }
-    
+
     setAddBookHandler() {
         const formLink = document.getElementById('form-link');
 
