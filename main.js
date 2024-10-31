@@ -20,33 +20,38 @@ document.querySelector('#app').innerHTML = `
     <div id="messages"></div>
     <div id="form">
       <h2>Añadir libro</h2>
-      <form id="bookForm">
+      <form id="bookForm" novalidate>
+        <div>
+          <label for="id" id="id-label" class="hidden">ID:</label>
+          <input type="text" id="id" name="id" class="hidden" readonly disabled>
+          </br>
+        </div>
         <div>
           <label for="id-module">Módulo:</label>
           <select id="id-module" required>
             <option value="" disabled selected>- Selecciona un módulo -</option>
           </select>
-          <span class="error"></span>
+          <span id="id-module-error" class="error"></span>
         </div>
 
         <div>
           <label for="publisher">Editorial:</label>
           <input type="text" id="publisher" required>
-          <span class="error"></span>
+          <span id="publisher-error" class="error"></span>
 
         </div>
 
         <div>
           <label for="price">Precio:</label>
           <input type="number" id="price" required min="0" step="0.01">
-          <span class="error"></span>
+          <span id="price-error" class="error"></span>
 
         </div>
 
         <div>
           <label for="pages">Páginas:</label>
           <input type="number" id="pages" required min="0" step="1">
-          <span class="error"></span>
+          <span id="pages-error" class="error"></span>
 
         </div>
 
@@ -61,7 +66,7 @@ document.querySelector('#app').innerHTML = `
           <label>
             <input type="radio" id="old" name="status" value="old" required> Old
           </label>
-          <span class="error"></span>
+          <span id="status-error" class="error"></span>
         </div>
 
         <div>
@@ -73,7 +78,6 @@ document.querySelector('#app').innerHTML = `
 
         <button type="submit">Añadir</button>
         <button type="reset">Reset</button>
-        <span class="error"></span>
 
       </form>
 

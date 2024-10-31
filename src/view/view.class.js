@@ -103,9 +103,11 @@ export default class View {
         this.bookForm.querySelector('button[type=submit]').innerHTML = 'Añadir';
         this.bookForm.reset();
         this.editingBookId = null;
-        const idField = this.bookForm.querySelector('#id')?.parentNode;
-        if (idField) {
-            idField.remove();
+        const idField = this.bookForm.querySelector('#id');
+        const idLabel = this.bookForm.querySelector('label[for="id"]');
+        if (idField && idLabel) {
+            idField.classList.add('hidden');
+            idLabel.classList.add('hidden');
         }
     }
 
@@ -135,8 +137,6 @@ export default class View {
            const price = document.getElementById('price').value;
            const comments = document.getElementById('comments').value;
 
-           
-
            const book = { moduleCode, publisher, pages, status: selectedStatus, price, comments };
             
            callback(book, this.editingBookId);
@@ -148,17 +148,13 @@ export default class View {
     setBookEditHandler(book) {
         const h2 = this.form.querySelector('h2');
         const bookForm = document.getElementById('bookForm');
-        let idField = document.getElementById('id')?.parentNode;
-        if (!idField) {
-            idField = document.createElement('div');
-            idField.innerHTML = `
-                <label for="id">ID</label>
-                <input type="text" id="id" name="id" value="${book.id}" readonly disabled />
-            `;
-        }
-        const moduleField = bookForm.querySelector('#id-module').parentNode;
-        moduleField.parentNode.insertBefore(idField, moduleField);
+        const idField = document.getElementById('id');
+        const idLabel = document.getElementById('id-label');
+        idField.classList.remove('hidden');
+        idField.value = book.id;
+        idLabel.classList.remove('hidden');
         h2.innerHTML = 'Editar libro';
+
         bookForm.querySelector('button[type=submit]').innerHTML = 'Editar';
         document.getElementById('id-module').value = book.moduleCode;
         document.getElementById('publisher').value = book.publisher;
@@ -180,5 +176,69 @@ export default class View {
             window.location.hash = '#form';
             this.resetForm();
         });
+    }
+
+    validateField(field, errorMessageId) {
+        if (!field.checkValidity()) {
+            field.classList.add('error');
+            document.getElementById(errorMessageId).textContent = this.messageError(field);
+            return true;
+        } else {
+            field.classList.remove('error');
+            document.getElementById(errorMessageId).textContent = '';
+            return false;
+        }
+    }
+
+    validateForm() {
+        const moduleSelected = document.getElementById('id-module');
+        const publisher = document.getElementById('publisher');
+        const pages = document.getElementById('pages');
+        const price = document.getElementById('price');
+        const status = document.querySelector('input[name="status"]:checked');
+
+        const errorFields = [];
+
+        errorFields.push(this.validateField(moduleSelected, 'id-module-error'));
+        errorFields.push(this.validateField(publisher, 'publisher-error'));
+        errorFields.push(this.validateField(pages, 'pages-error'));
+        errorFields.push(this.validateField(price, 'price-error'));
+
+        if (status === null) {
+            document.getElementById('status-error').textContent = 'Es necesario seleccionar un estado';
+            errorFields.push(true);
+        } else {
+            errorFields.push(this.validateField(status, 'status-error'));
+        }
+
+        if (errorFields.includes(true)) {
+            const errorMessage = 'Por favor, complete los campos obligatorios';
+            document.getElementById('error-message').textContent = errorMessage;
+        } else {
+            document.getElementById('error-message').textContent = '';
+        }
+
+        const isValid = !errorFields.includes(true);
+
+        return isValid;
+    }
+
+    messageError(element) {
+        if (element.validity.valueMissing) {
+            return 'Este campo es obligatorio';
+        }
+
+        if (element.validity.patternMismatch) {
+            return 'El formato no es correcto';
+        }
+
+        if (element.validity.rangeUnderflow) {
+            return `El valor debe ser mayor o igual a ${element.min}`;
+            
+        }
+
+        if (element.validity.stepMismatch) {
+            return `El valor debe tener ${element.step === '0.01' ? '2 decimales' : 'entero'}`;
+        }
     }
 }

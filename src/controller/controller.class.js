@@ -72,6 +72,9 @@ export default class Controller {
     async handleSubmitBook(payLoad, editingBookId) {
         try {
             let book;
+            if (!this.view.validateForm()) {
+                return
+            }
             if (editingBookId) {
                 const bookToEdit = this.model.books.getBookById(editingBookId);
                 book = await this.model.books.changeBook({...bookToEdit, ...payLoad});
