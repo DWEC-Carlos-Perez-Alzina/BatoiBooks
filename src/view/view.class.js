@@ -166,6 +166,8 @@ export default class View {
         document.getElementById('price').value = book.price;
         document.getElementById('comments').value = book.comments;
         this.editingBookId = book.id;
+
+        window.location.hash = '#form';
     }
 
     setAddBookHandler() {
@@ -188,6 +190,12 @@ export default class View {
             document.getElementById(errorMessageId).textContent = '';
             return false;
         }
+    }
+
+    errorMessageModule() {
+        const module = document.getElementById('id-module');
+        module.classList.add('error');
+        document.getElementById('id-module-error').textContent = 'Por favor, selecciona un módulo';
     }
 
     validateForm() {
@@ -213,9 +221,9 @@ export default class View {
 
         if (errorFields.includes(true)) {
             const errorMessage = 'Por favor, complete los campos obligatorios';
-            document.getElementById('error-message').textContent = errorMessage;
+            document.getElementsByClassName('error').textContent = errorMessage;
         } else {
-            document.getElementById('error-message').textContent = '';
+            document.getElementsByClassName('error').textContent = '';
         }
 
         const isValid = !errorFields.includes(true);

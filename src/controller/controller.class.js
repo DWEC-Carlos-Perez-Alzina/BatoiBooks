@@ -72,6 +72,7 @@ export default class Controller {
     async handleSubmitBook(payLoad, editingBookId) {
         try {
             let book;
+            const userId = 3;
             if (!this.view.validateForm()) {
                 return
             }
@@ -81,7 +82,13 @@ export default class Controller {
                 this.view.renderMessage('success', 'Libro editado correctamente');
                 this.view.renderEditedBook(book);
             } else {
-                book = await this.model.books.addBook(payLoad);
+                const booksFromUser = await this.model.books.getBookByUserIdAndModule(userId, payLoad.moduleCode);
+                console.log(booksFromUser.length)
+                if (Array.isArray(booksFromUser) && booksFromUser.length > 0) {
+                    this.view.errorMessageModule();
+                    return;
+                }
+                book = await this.model.books.addBook({...payLoad, 'userId': userId});
                 this.view.renderMessage('success', 'Libro agregado');
                 this.view.renderBook(book, this.model.modules.getModuleByCode(book.moduleCode));
                 this.setBookRemoveEventListener([book]);

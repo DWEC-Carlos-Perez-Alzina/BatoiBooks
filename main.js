@@ -1,6 +1,7 @@
 import './style.css'
 import batoiLogo from '/logoBatoi.png'
 import Controller from './src/controller/controller.class'
+import Router from './src/services/router'
 
 document.querySelector('#app').innerHTML = `
   <header>
@@ -91,6 +92,7 @@ document.querySelector('#app').innerHTML = `
   </div>
 `
 document.addEventListener('DOMContentLoaded', () => {
-  const myController = new Controller()
-  myController.init()
+  const router = new Router();
+  const myController = new Controller(); 
+  myController.init();
 });

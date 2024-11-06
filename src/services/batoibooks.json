@@ -2142,9 +2142,9 @@
       "id": "1",
       "userId": 2,
       "moduleCode": "5025",
-      "publisher": "Apunts",
-      "price": 12,
-      "pages": 25,
+      "publisher": "1Apunts",
+      "price": "12",
+      "pages": "25",
       "status": "good",
       "photo": "",
       "comments": "",
@@ -2191,33 +2191,11 @@
       "userId": 5,
       "moduleCode": "5021",
       "publisher": "Apunts",
-      "price": "123",
+      "price": "1233",
       "pages": "5756",
       "status": "good",
       "photo": "",
       "comments": "jiji",
-      "soldDate": ""
-    },
-    {
-      "id": "11",
-      "moduleCode": "0021",
-      "publisher": "jsdsd2222",
-      "price": "5445546",
-      "pages": "546546",
-      "status": "good",
-      "photo": "",
-      "comments": "adad",
-      "soldDate": ""
-    },
-    {
-      "id": "1525",
-      "moduleCode": "0011",
-      "publisher": "aPruebaaaaaa",
-      "price": "312312",
-      "pages": "1231230",
-      "status": "good",
-      "photo": "",
-      "comments": "adadasd",
       "soldDate": ""
     }
   ]

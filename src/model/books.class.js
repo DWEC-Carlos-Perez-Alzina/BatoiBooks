@@ -32,6 +32,12 @@ export default class Books {
         return newBook
     }
 
+    async getBookByUserIdAndModule(userId, moduleCode) {
+        const books = await this.booksApi.getDBBooksByUserIdAndModule(userId, moduleCode)
+        console.log(books)
+        return books
+    }
+
     toString() {
         return this.data.map(book => book.toString()).join(', ')
     }

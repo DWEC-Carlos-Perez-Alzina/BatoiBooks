@@ -13,7 +13,7 @@ export default class BooksApi {
     }
 
     async getDBBook(id) {
-        const response = await fetch(`${SERVER}/book/${id}`)
+        const response = await fetch(`${SERVER}/books/${id}`)
 
         if (!response.ok) {
             throw new Error('Error al borrar el libro')
@@ -68,5 +68,11 @@ export default class BooksApi {
 
         const data = await response.json()
         return data        
+    }
+
+    async getDBBooksByUserIdAndModule(userId, moduleCode) {
+        const response = await fetch(`${SERVER}/books?userId=${userId}&moduleCode=${moduleCode}`)
+        const data = await response.json()
+        return data
     }
 }
