@@ -122,6 +122,12 @@ export default class View {
     setBookSubmitHandler(callback) {
         this.bookForm.addEventListener('submit', (event) => {
            event.preventDefault();
+           const isValid = this.validateForm();
+
+           if (!isValid) {
+               return;
+           }
+   
            const moduleCode = document.getElementById('id-module').value;
            const publisher = document.getElementById('publisher').value;
            const pages = document.getElementById('pages').value;
@@ -140,8 +146,6 @@ export default class View {
            const book = { moduleCode, publisher, pages, status: selectedStatus, price, comments };
             
            callback(book, this.editingBookId);
-        
-           this.resetForm();
         });
     }
 
@@ -195,7 +199,7 @@ export default class View {
     errorMessageModule() {
         const module = document.getElementById('id-module');
         module.classList.add('error');
-        document.getElementById('id-module-error').textContent = 'Por favor, selecciona un módulo';
+        document.getElementById('id-module-error').textContent = 'Ya has subido un libro de este modulo';
     }
 
     validateForm() {

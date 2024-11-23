@@ -2197,6 +2197,16 @@
       "photo": "",
       "comments": "jiji",
       "soldDate": ""
+    },
+    {
+      "id": "aad4",
+      "moduleCode": "0011",
+      "publisher": "test",
+      "pages": "123",
+      "status": "good",
+      "price": "123",
+      "comments": "test",
+      "userId": 3
     }
   ]
 }

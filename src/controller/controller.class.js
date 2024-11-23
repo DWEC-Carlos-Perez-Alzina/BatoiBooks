@@ -94,6 +94,7 @@ export default class Controller {
                 this.setBookRemoveEventListener([book]);
                 this.setBookAddToCartEventListener([book]);
                 this.setBookEditHandlerController([book]);
+                this.view.resetForm();
             }
         } catch (error) {
             console.error(error);
